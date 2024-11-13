@@ -2,7 +2,7 @@ import "dotenv";
 import { openai } from "@ai-sdk/openai";
 import { CoreMessage, streamText, tool } from "ai";
 import { readFile } from "fs/promises";
-import ServerError from "./serverErrot";
+import ServerError from "./serverError";
 import path from "path";
 
 interface MainAbstract {
