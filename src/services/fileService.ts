@@ -9,7 +9,7 @@ export interface IFileService {
 
 class FileService implements IFileService {
   async readTxtFile(): Promise<string> {
-    const filePath = path.join(__dirname, "../artykul-content.txt");
+    const filePath = path.join(__dirname, process.env.ARTICLE_TXT_FILE_PATH!);
 
     let fileText: string;
 
@@ -31,7 +31,7 @@ class FileService implements IFileService {
   }
 
   async saveResultToFile(result: string): Promise<void> {
-    const filePath = path.join(__dirname, "../artykul.html");
+    const filePath = path.join(__dirname, process.env.ARTICLE_HTML_FILE_PATH!);
 
     try {
       await writeFile(filePath, result, {
