@@ -7,7 +7,6 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "nodemon"
-    
   },
   "keywords": [],
   "author": "",
@@ -21,6 +20,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.9.0",
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.7",
+    "ts-node": "^10.9.2"
   }
 }
