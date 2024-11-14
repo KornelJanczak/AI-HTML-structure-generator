@@ -20,6 +20,8 @@ class Main implements IMain {
   }
 
   async execute(): Promise<void> {
+    console.log("Executing...");
+
     const txtFileContent = await this.fileService.readTxtFile();
     const htmlContent = await this.AIService.sendTxtFileContentToAI(
       txtFileContent
