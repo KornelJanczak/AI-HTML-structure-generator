@@ -3,6 +3,7 @@ import { IAIService } from "./services/AIService";
 import { IFileService } from "./services/fileService";
 import aiService from "./services/AIService";
 import fileService from "./services/fileService";
+import logger from "./common/logger";
 
 dotenv.config();
 
@@ -20,7 +21,7 @@ class Main implements IMain {
   }
 
   async execute(): Promise<void> {
-    console.log("Executing...");
+    logger.info("Starting the process...");
 
     const txtFileContent = await this.fileService.readTxtFile();
     const htmlContent = await this.AIService.sendTxtFileContentToAI(
@@ -28,7 +29,7 @@ class Main implements IMain {
     );
     await this.fileService.saveResultToFile(htmlContent);
 
-    console.log("Result: ", htmlContent);
+    logger.info("Success! Article with HTML code has been saved.");
   }
 }
 
