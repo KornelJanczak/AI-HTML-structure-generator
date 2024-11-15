@@ -29,8 +29,8 @@ npm install
 ### Step 3: Configure Environment
 Create a .env file in the root directory of the project and add the following environment variables:
 ```sh
-ARTICLE_TXT_FILE_PATH=../../article-content.txt
-ARTICLE_HTML_FILE_PATH=../../article.html
+ARTICLE_TXT_FILE_PATH="../../article-content.txt"
+ARTICLE_HTML_FILE_PATH="../../article.html"
 OPENAI_API_KEY=your_openai_api_key
 ```
 
