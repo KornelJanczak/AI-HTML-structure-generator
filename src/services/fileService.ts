@@ -1,7 +1,8 @@
 import { readFile, writeFile } from "fs/promises";
 import * as lockfile from "proper-lockfile";
-import ServerError from "../serverError";
+import ServerError from "../common/errors/serverError";
 import path from "path";
+import logger from "../common/logger";
 
 export interface IFileService {
   readTxtFile(): Promise<string>;
@@ -10,6 +11,7 @@ export interface IFileService {
 
 class FileService implements IFileService {
   async readTxtFile(): Promise<string> {
+    logger.info("Reading file content...");
     const filePath = path.join(__dirname, process.env.ARTICLE_TXT_FILE_PATH!);
 
     await this.lockFile(filePath);
@@ -21,11 +23,9 @@ class FileService implements IFileService {
         encoding: "utf-8",
       });
 
-      console.log(
-        `------------------\nFILE CONTENT:\n${fileText}\n------------------`
-      );
+      logger.info(`File content has been readed from ${filePath}`);
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       throw new ServerError({
         name: "File System Error",
         message: "Error while reading file",
@@ -38,6 +38,7 @@ class FileService implements IFileService {
   }
 
   async saveResultToFile(result: string): Promise<void> {
+    logger.info("Saving HTML code to file...");
     const filePath = path.join(__dirname, process.env.ARTICLE_HTML_FILE_PATH!);
 
     await this.lockFile(filePath);
@@ -46,9 +47,9 @@ class FileService implements IFileService {
       await writeFile(filePath, result, {
         encoding: "utf-8",
       });
-      console.log("HTML code saved to file:", filePath);
+      logger.info("HTML code has been saved to file:", filePath);
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       throw new ServerError({
         name: "File System Error",
         message: "Error while writing to file",
@@ -61,7 +62,8 @@ class FileService implements IFileService {
   private async lockFile(filePath: string): Promise<void> {
     try {
       await lockfile.lock(filePath);
-    } catch {
+    } catch (err) {
+      logger.error(err);
       throw new ServerError({
         name: "File System Error",
         message: "Error while locking file",
