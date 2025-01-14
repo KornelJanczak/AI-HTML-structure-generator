@@ -1,4 +1,4 @@
-# OXIDO Recruitment Task
+# AI HTML structure generator
 
 ## Application Description
 
